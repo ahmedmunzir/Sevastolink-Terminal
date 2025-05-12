@@ -1,0 +1,254 @@
+@font-face {
+  font-family: 'Sevastolink';
+  src: url('Fonts/jixellation.ttf') format('truetype');
+  font-display: swap;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0c290c;
+  font-family: 'Sevastolink', monospace;
+  color: #05b669;
+}
+
+#screen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.top-bar {
+  position: absolute;
+  top: 7.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90vw;
+  height: 5vh;
+  background: #05b669;
+  z-index: 0;
+}
+
+.top-bar-extension {
+  position: absolute;
+  top: 7.5vh;
+  left: calc(6vw + 86vw);
+  width: 3vw;
+  height: 5vh;
+  background: #0c290c;
+  border-top: 0.15vw solid #05b669;
+  border-bottom: 0.15vw solid #05b669;
+  border-right: 0.15vw solid #05b669;
+  box-sizing: border-box;
+  z-index: 0;
+}
+
+.top-bar-text {
+  position: absolute;
+  top: 8.2vh;
+  left: 6vw;
+  font-size: 1.25vw;
+  color: #000;
+  z-index: 0;
+  white-space: nowrap;
+}
+
+.folders-label {
+  position: absolute;
+  top: 20vh;
+  left: 6vw;
+  font-size: 1.5vw;
+  color: #05b669;
+  z-index: 0;
+  white-space: nowrap;
+}
+
+.folders-list {
+  position: absolute;
+  top: 28vh;
+  left: 6vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  z-index: 3;
+}
+
+.folder {
+  position: relative;
+  padding: 0;
+  font-size: 1vw;
+  color: #ccd5d4;
+  border: 0.2vw solid #05b669;
+  background: transparent;
+  width: 18vw;
+  height: 8.9vw;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.folder-inner {
+  padding: 1vh 1vw;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.folder-text {
+  white-space: nowrap;
+  font-size: medium;
+}
+
+.folder:not(.active):hover {
+  border-color: #ccd5d4;
+  background-color: #05b669;
+}
+
+.folder:not(.active):hover .folder-text {
+  color: #ccd5d4;
+}
+
+.folder.active {
+  border-color: #ccd5d4;
+}
+
+.folder.active::before,
+.folder.active::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 0.9vw;
+  height: 9.25vw;
+  background: #ccd5d4;
+  transform: translateY(-50%);
+}
+
+.folder.active::before { left: -1vw; }
+.folder.active::after { right: -1vw; }
+
+.connector-line,
+.connector-vertical,
+.connector-top-right {
+  position: absolute;
+  background: #ccd5d4;
+  display: none;
+}
+
+.connector-line {
+  top: 50%;
+  left: 100%;
+  width: 3vw;
+  height: 0.2vw;
+  transform: translateY(-50%);
+}
+
+.connector-vertical {
+  left: calc(100% + 2.8vw);
+  width: 0.2vw;
+  top: calc(50% - var(--v-length, 0));
+  height: var(--v-length, 0);
+}
+
+.connector-top-right {
+  left: calc(100% + 2.8vw);
+  width: 2vw;
+  height: 0.2vw;
+  top: calc(50% - var(--v-length, 0));
+}
+
+.folder.active .connector-line,
+.folder.active .connector-vertical,
+.folder.active .connector-top-right {
+  display: block;
+}
+
+
+.content-header-bar {
+  position: absolute;
+  top: 18vh;
+  left: 28.5vw;
+  width: 60vw;
+  height: 4vh;
+  background: #054B1C;
+  color: #fff;
+  font-size: 1vw;
+  padding: 0.5vh 1vw;
+  display: flex;
+  align-items: center;
+  border: 0.15vw solid #ccd5d4;
+  z-index: 4;
+}
+
+
+.content-panel {
+  position: absolute;
+  top: calc(18vh + 8vh);
+  left: 28.5vw;
+  width: 62vw;
+  min-height: 58.5vh;
+  border: 0.15vw solid #05b669;
+  z-index: 4;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+
+ 
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.content-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5vh;
+  background: #05b669;
+}
+
+.content-body {
+  padding: 4vh 2vw 2vh 2vw;
+  font-size: 1vw;
+  color: #ccd5d4;
+  line-height: 1.6;
+  white-space: pre-line;
+
+ 
+  overflow: hidden;
+}
+#pongCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #0c290c;
+  image-rendering: pixelated;
+  border: none;
+}
+
+
+#scan, #bezel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#scan {
+  z-index: 10;
+  opacity: 0.3;
+}
+
+#bezel {
+  z-index: 11;
+}
