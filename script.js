@@ -3,36 +3,18 @@ window.addEventListener('load', animateLoadingBarStutter);
 function animateLoadingBarStutter() {
   const bar = document.querySelector('.progress-bar');
 
+  // When the animation ends, trigger the redirect sequence
   bar.addEventListener('animationend', loadPostload, { once: true });
 }
 
 function loadPostload() {
+  const screen = document.getElementById('screen');
+  
+  // Trigger fade-out animation
+  screen.classList.add('fade-out');
 
-  fetch('postload.html')
-    .then(res => res.text())
-    .then(html => {
-
-      const post = document.createElement('div');
-      post.id = 'postload';
-      post.innerHTML = html;
-      document.body.appendChild(post);
-
-
-      requestAnimationFrame(() => {
-
-        document.getElementById('screen').classList.add('fade-out');
-
-        post.classList.add('fade-in');
-      });
-
-
-      setTimeout(() => {
-        const old = document.getElementById('screen');
-        if (old) old.remove();
-      }, 900); 
-    })
-    .catch(err => {
-      console.error('Failed to load postload:', err);
-      window.location.href = 'postload.html';
-    });
+  // Redirect after fade-out finishes
+  setTimeout(() => {
+    window.location.href = 'postload.html';
+  }, 900); // Match this with your CSS fade-out duration
 }
